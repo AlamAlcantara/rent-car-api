@@ -30,7 +30,7 @@ public class ModelController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Model> getBrandById(@PathVariable("id") int id) {
+	public ResponseEntity<Model> getModelById(@PathVariable("id") int id) {
 		return new ResponseEntity<>(service.getModelById(id), HttpStatus.OK);
 	}
 	

@@ -1,22 +1,22 @@
 package com.example.rentcar.entities;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "models")
-public class Model implements Serializable {
-	
+@Table(name = "customer_type")
+public class CustomerType implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -27,13 +27,9 @@ public class Model implements Serializable {
 	@Column(name = "description")
 	private String description;
 	
-	@Column(name = "state")
-	private boolean active;
-	
-	@ManyToOne()
-	@JoinColumn(name = "brand_id")
-	@JsonBackReference
-	private Brand brand;
+	@OneToMany(mappedBy = "customerType")
+	@JsonIgnoreProperties("customerType")
+	private List<Customer> customers;
 
 	/**
 	 * @return the id
@@ -61,34 +57,6 @@ public class Model implements Serializable {
 	 */
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	/**
-	 * @return the active
-	 */
-	public boolean isActive() {
-		return active;
-	}
-
-	/**
-	 * @param active the active to set
-	 */
-	public void setActive(boolean active) {
-		this.active = active;
-	}
-
-	/**
-	 * @return the brand
-	 */
-	public Brand getBrand() {
-		return brand;
-	}
-
-	/**
-	 * @param brand the brand to set
-	 */
-	public void setBrand(Brand brand) {
-		this.brand = brand;
 	}
 
 }
