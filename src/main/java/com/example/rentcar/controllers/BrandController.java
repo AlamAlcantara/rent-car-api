@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.rentcar.entities.Brand;
+import com.example.rentcar.entities.Model;
 import com.example.rentcar.services.BrandService;
 
 @RestController
@@ -32,6 +33,11 @@ public class BrandController {
 	@GetMapping("/{id}")
 	public ResponseEntity<Brand> getBrandById(@PathVariable("id") int id) {
 		return new ResponseEntity<>(service.getBrandById(id), HttpStatus.OK);
+	}
+	
+	@GetMapping("/{id}/models")
+	public ResponseEntity<List<Model>> getBrandModels(@PathVariable("id") int id) {
+		return new ResponseEntity<>(service.getBrandModels(id), HttpStatus.OK);
 	}
 	
 	@PostMapping

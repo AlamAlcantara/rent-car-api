@@ -1,22 +1,17 @@
 package com.example.rentcar.entities;
 
 import java.io.Serializable;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 @Entity
-@Table(name = "BRAND")
-public class Brand implements Serializable {
+@Table(name = "vehicle_type")
+public class VehicleType implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -30,26 +25,6 @@ public class Brand implements Serializable {
 	
 	@Column(name = "state")
 	private boolean active;
-	
-	@OneToMany(
-			mappedBy = "brand",
-			cascade = CascadeType.ALL)
-	@JsonManagedReference
-	private List<Model> models;
-	
-	public Brand() {
-		this.description = "";
-		this.active = false;
-	}
-
-	/**
-	 * @param description
-	 * @param state
-	 */
-	public Brand(String description, boolean state) {
-		this.description = description;
-		this.active = state;
-	}
 
 	/**
 	 * @return the id
@@ -91,20 +66,6 @@ public class Brand implements Serializable {
 	 */
 	public void setActive(boolean active) {
 		this.active = active;
-	}
-
-	/**
-	 * @return the models
-	 */
-	public List<Model> getModels() {
-		return models;
-	}
-
-	/**
-	 * @param models the models to set
-	 */
-	public void setModels(List<Model> models) {
-		this.models = models;
 	}
 	
 }
