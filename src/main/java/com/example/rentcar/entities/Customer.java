@@ -49,6 +49,10 @@ public class Customer implements Serializable {
 	@OneToMany(mappedBy = "customer")
 	@JsonIgnoreProperties("customer")
 	private List<Inspection> inspections;
+	
+	@OneToMany(mappedBy = "customer")
+	@JsonIgnoreProperties("customer")
+	private List<Rent> rents;
 
 	/**
 	 * @return the id
@@ -161,4 +165,20 @@ public class Customer implements Serializable {
 	public void setInspections(List<Inspection> inspections) {
 		this.inspections = inspections;
 	}
+
+	/**
+	 * @return the rents
+	 */
+	public List<Rent> getRents() {
+		return rents;
+	}
+
+	/**
+	 * @param rents the rents to set
+	 */
+	public void setRents(List<Rent> rents) {
+		this.rents = rents;
+	}
+	
+	
 }

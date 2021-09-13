@@ -29,17 +29,17 @@ public class Inspection implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name = "vehicle_id")
-	@JsonIgnoreProperties("inspections")
+	@JsonIgnoreProperties({"inspections", "rents"})
 	private Vehicle vehicle;
 	
 	@ManyToOne
 	@JoinColumn(name = "customer_id")
-	@JsonIgnoreProperties("inspections")
+	@JsonIgnoreProperties({"inspections", "rents"})
 	private Customer customer;
 	
 	@ManyToOne
 	@JoinColumn(name = "employee_id")
-	@JsonIgnoreProperties("inspections")
+	@JsonIgnoreProperties({"inspections", "rents"})
 	private Employee employee;
 	
 	@Column(name = "fuel_level")

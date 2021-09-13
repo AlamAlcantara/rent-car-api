@@ -67,6 +67,10 @@ public class Vehicle implements Serializable {
 	@OneToMany(mappedBy = "vehicle")
 	@JsonIgnoreProperties("vehicle")
 	private List<Inspection> inspections;
+	
+	@OneToMany(mappedBy = "vehicle")
+	@JsonIgnoreProperties("vehicle")
+	private List<Rent> rents;
 
 	/**
 	 * @return the id
@@ -234,6 +238,20 @@ public class Vehicle implements Serializable {
 	 */
 	public void setInspections(List<Inspection> inspections) {
 		this.inspections = inspections;
+	}
+
+	/**
+	 * @return the rents
+	 */
+	public List<Rent> getRents() {
+		return rents;
+	}
+
+	/**
+	 * @param rents the rents to set
+	 */
+	public void setRents(List<Rent> rents) {
+		this.rents = rents;
 	}
 	
 }

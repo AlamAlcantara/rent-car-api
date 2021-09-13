@@ -53,6 +53,10 @@ private static final long serialVersionUID = 1L;
 	@OneToMany(mappedBy = "employee")
 	@JsonIgnoreProperties("employee")
 	private List<Inspection> inspections;
+	
+	@OneToMany(mappedBy = "employee")
+	@JsonIgnoreProperties({"employee"})
+	private List<Rent> rents;
 
 	/**
 	 * @return the id
@@ -164,6 +168,20 @@ private static final long serialVersionUID = 1L;
 	 */
 	public void setInspections(List<Inspection> inspections) {
 		this.inspections = inspections;
+	}
+
+	/**
+	 * @return the rents
+	 */
+	public List<Rent> getRents() {
+		return rents;
+	}
+
+	/**
+	 * @param rents the rents to set
+	 */
+	public void setRents(List<Rent> rents) {
+		this.rents = rents;
 	}
 
 }
