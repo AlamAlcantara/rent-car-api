@@ -1,6 +1,7 @@
 package com.example.rentcar.entities;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,9 +10,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "models")
@@ -32,8 +34,12 @@ public class Model implements Serializable {
 	
 	@ManyToOne()
 	@JoinColumn(name = "brand_id")
-	@JsonBackReference
+	@JsonIgnoreProperties("models")
 	private Brand brand;
+	
+	@OneToMany(mappedBy = "model")
+	@JsonIgnoreProperties("model")
+	private List<Vehicle> vehicles;
 
 	/**
 	 * @return the id
@@ -89,6 +95,20 @@ public class Model implements Serializable {
 	 */
 	public void setBrand(Brand brand) {
 		this.brand = brand;
+	}
+
+	/**
+	 * @return the vehicles
+	 */
+	public List<Vehicle> getVehicles() {
+		return vehicles;
+	}
+
+	/**
+	 * @param vehicles the vehicles to set
+	 */
+	public void setVehicles(List<Vehicle> vehicles) {
+		this.vehicles = vehicles;
 	}
 
 }

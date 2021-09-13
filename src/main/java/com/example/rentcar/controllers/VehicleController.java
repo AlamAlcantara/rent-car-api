@@ -14,40 +14,41 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.rentcar.entities.FuelType;
-import com.example.rentcar.services.FuelTypeService;
+import com.example.rentcar.entities.Vehicle;
+import com.example.rentcar.services.VehicleService;
 
 @RestController
-@RequestMapping("/fuel-types")
-public class FuelTypeController {
+@RequestMapping("/vehicles")
+public class VehicleController {
 	
 	@Autowired
-	private FuelTypeService service;
-
+	private VehicleService service;
+	
 	@GetMapping
-	public ResponseEntity<List<FuelType>> getAll() {
+	public ResponseEntity<List<Vehicle>> getAll() {
 		return new ResponseEntity<>(service.getAll(), HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<FuelType> getFuelTypeById(@PathVariable("id") int id) {
-		return new ResponseEntity<>(service.getFuelTypeById(id), HttpStatus.OK);
+	public ResponseEntity<Vehicle> getVehicleById(@PathVariable("id") int id) {
+		return new ResponseEntity<>(service.getVehicleById(id), HttpStatus.OK);
 	}
 	
 	@PostMapping
-	public ResponseEntity<FuelType> createFuelType(@RequestBody() FuelType fuelType) {
-		return new ResponseEntity<>(service.createFuelType(fuelType), HttpStatus.CREATED);
+	public ResponseEntity<Vehicle> createVehicle(@RequestBody() Vehicle vehicle) {
+		return new ResponseEntity<>(service.createVehicle(vehicle), HttpStatus.CREATED);
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<FuelType> updateFuelType(@PathVariable("id") int id, 
-			@RequestBody() FuelType fuelType) {
+	public ResponseEntity<Vehicle> updateVehicle(@PathVariable("id") int id, 
+			@RequestBody() Vehicle vehicle) {
 		
-		return new ResponseEntity<>(service.updateFuelType(id, fuelType), HttpStatus.OK);
+		return new ResponseEntity<>(service.updateVehicle(id, vehicle), HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/{id}")
-	public void deleteFuelTypeById(@PathVariable("id") int id) {
-		service.deleteFuelType(id);
+	public void deleteVehicleById(@PathVariable("id") int id) {
+		service.deleteVehicle(id);
 	}
+
 }

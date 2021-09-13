@@ -1,6 +1,7 @@
 package com.example.rentcar.entities;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -43,6 +45,10 @@ public class Customer implements Serializable {
 	@JoinColumn(name = "customer_type_id")
 	@JsonIgnoreProperties("customers")
 	private CustomerType customerType;
+	
+	@OneToMany(mappedBy = "customer")
+	@JsonIgnoreProperties("customer")
+	private List<Inspection> inspections;
 
 	/**
 	 * @return the id
@@ -140,5 +146,19 @@ public class Customer implements Serializable {
 	 */
 	public void setCustomerType(CustomerType customerType) {
 		this.customerType = customerType;
+	}
+
+	/**
+	 * @return the inspections
+	 */
+	public List<Inspection> getInspections() {
+		return inspections;
+	}
+
+	/**
+	 * @param inspections the inspections to set
+	 */
+	public void setInspections(List<Inspection> inspections) {
+		this.inspections = inspections;
 	}
 }

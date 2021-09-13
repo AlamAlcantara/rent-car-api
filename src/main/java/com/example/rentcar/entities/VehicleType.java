@@ -1,13 +1,17 @@
 package com.example.rentcar.entities;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "vehicle_type")
@@ -25,6 +29,10 @@ public class VehicleType implements Serializable {
 	
 	@Column(name = "state")
 	private boolean active;
+	
+	@OneToMany(mappedBy = "vehicleType")
+	@JsonIgnoreProperties("vehicleType")
+	private List<Vehicle> vehicles;
 
 	/**
 	 * @return the id
@@ -66,6 +74,20 @@ public class VehicleType implements Serializable {
 	 */
 	public void setActive(boolean active) {
 		this.active = active;
+	}
+
+	/**
+	 * @return the vehicles
+	 */
+	public List<Vehicle> getVehicles() {
+		return vehicles;
+	}
+
+	/**
+	 * @param vehicles the vehicles to set
+	 */
+	public void setVehicles(List<Vehicle> vehicles) {
+		this.vehicles = vehicles;
 	}
 	
 }
