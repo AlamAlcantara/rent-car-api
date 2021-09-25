@@ -31,11 +31,11 @@ public class Brand implements Serializable {
 	private boolean active;
 	
 	@OneToMany(mappedBy = "brand")
-	@JsonIgnoreProperties("brand")
+	@JsonIgnoreProperties({"brand", "vehicles"})
 	private List<Model> models;
 	
 	@OneToMany(mappedBy = "brand")
-	@JsonIgnoreProperties("brand")
+	@JsonIgnoreProperties()
 	private List<Vehicle> vehicles;
 	
 	public Brand() {

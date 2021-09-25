@@ -34,7 +34,7 @@ public class Model implements Serializable {
 	
 	@ManyToOne()
 	@JoinColumn(name = "brand_id")
-	@JsonIgnoreProperties("models")
+	@JsonIgnoreProperties({"models", "vehicles"})
 	private Brand brand;
 	
 	@OneToMany(mappedBy = "model")
