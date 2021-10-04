@@ -29,11 +29,11 @@ public class ModelService {
 		return repo.save(model);
 	}
 	
-	public Model updateModel(int id, Model brand) { 
+	public Model updateModel(int id, Model model) { 
 		Model actualModel = this.getModelById(id);
 		
-		actualModel.setDescription(brand.getDescription());
-		actualModel.setActive(brand.isActive());
+		actualModel.setDescription(model.getDescription());
+		actualModel.setActive(model.isActive());
 		
 		return repo.save(actualModel);
 	}

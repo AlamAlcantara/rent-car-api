@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.example.rentcar.enums.VehicleState;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -30,7 +33,8 @@ public class Vehicle implements Serializable {
 	private String description;
 	
 	@Column(name = "state")
-	private String state;
+	@Enumerated(EnumType.STRING)
+	private VehicleState state;
 	
 	@Column(name = "image_url")
 	private String imageUrl;
@@ -103,14 +107,14 @@ public class Vehicle implements Serializable {
 	/**
 	 * @return the state
 	 */
-	public String getState() {
+	public VehicleState getState() {
 		return state;
 	}
 
 	/**
 	 * @param state the state to set
 	 */
-	public void setState(String state) {
+	public void setState(VehicleState state) {
 		this.state = state;
 	}
 

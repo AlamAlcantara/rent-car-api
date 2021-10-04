@@ -43,6 +43,7 @@ public class InspectionService {
 		actualInspection.setActive(inspection.isActive());
 		actualInspection.setHasJack(inspection.isHasJack());
 		actualInspection.setFuelLevel(inspection.getFuelLevel());
+		actualInspection.setInspectionType(inspection.getInspectionType());
 		
 		return repo.save(actualInspection);
 	}

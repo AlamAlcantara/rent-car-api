@@ -38,7 +38,7 @@ public class Model implements Serializable {
 	private Brand brand;
 	
 	@OneToMany(mappedBy = "model")
-	@JsonIgnoreProperties("model")
+	@JsonIgnoreProperties(value = "model", allowSetters = true)
 	private List<Vehicle> vehicles;
 
 	/**

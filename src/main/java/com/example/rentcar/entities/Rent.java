@@ -1,12 +1,8 @@
 package com.example.rentcar.entities;
 
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,10 +11,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -35,7 +31,7 @@ public class Rent implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name = "employee_id")
-	@JsonIgnoreProperties("rents")
+	@JsonIgnoreProperties({"rents", "inspections"})
 	private Employee employee;
 	
 	@ManyToOne
@@ -45,7 +41,7 @@ public class Rent implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name = "customer_id")
-	@JsonIgnoreProperties("rents")
+	@JsonIgnoreProperties({"rents", "inspections"})
 	private Customer customer;
 	
 	@Column(name = "start_date")
@@ -65,8 +61,10 @@ public class Rent implements Serializable {
 	@Column(name = "state")
 	private String state;
 	
-	@Transient
-	private long daysQuantity;
+	@OneToMany(mappedBy = "rent")
+	@JsonIgnoreProperties({"rent", "vehicle", "employee", "customer"})
+	private List<Inspection> inspections;
+	
 
 	/**
 	 * @return the id
@@ -153,31 +151,6 @@ public class Rent implements Serializable {
 	}
 
 	/**
-	 * @return the daysQuantity
-	 * @throws ParseException 
-	 */
-	public long getDaysQuantity() throws ParseException {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		Date formattedStartDate = sdf.parse(startDate.toString());
-		Date formattedEndDate = sdf.parse(endDate.toString());
-		
-		LocalDate date1 = formattedStartDate.toInstant()
-				.atZone(ZoneId.systemDefault()).toLocalDate();
-		
-		LocalDate date2 = formattedEndDate.toInstant()
-				.atZone(ZoneId.systemDefault()).toLocalDate();
-		
-		return ChronoUnit.DAYS.between(date1, date2);
-	}
-	
-	/**
-	 * @param daysQuantity the daysQuantity to set
-	 */
-	public void setDaysQuantity(int daysQuantity) {
-		this.daysQuantity = daysQuantity;
-	}
-
-	/**
 	 * @return the amountPerDay
 	 */
 	public double getAmountPerDay() {
@@ -217,6 +190,20 @@ public class Rent implements Serializable {
 	 */
 	public void setState(String state) {
 		this.state = state;
+	}
+
+	/**
+	 * @return the inspections
+	 */
+	public List<Inspection> getInspections() {
+		return inspections;
+	}
+
+	/**
+	 * @param inspections the inspections to set
+	 */
+	public void setInspections(List<Inspection> inspections) {
+		this.inspections = inspections;
 	}
 	
 }

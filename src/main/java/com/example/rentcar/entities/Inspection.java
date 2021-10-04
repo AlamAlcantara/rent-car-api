@@ -5,6 +5,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,6 +16,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.example.rentcar.enums.InspectionType;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -42,6 +45,11 @@ public class Inspection implements Serializable {
 	@JsonIgnoreProperties({"inspections", "rents"})
 	private Employee employee;
 	
+	@ManyToOne
+	@JoinColumn(name = "rent_id")
+	@JsonIgnoreProperties({"inspections", "vehicle", "employee", "customer"})
+	private Rent rent;
+	
 	@Column(name = "fuel_level")
 	private String fuelLevel;
 	
@@ -63,6 +71,10 @@ public class Inspection implements Serializable {
 	
 	@Column(name = "state")
 	private boolean active;
+	
+	@Column(name = "inspection_type")
+	@Enumerated(EnumType.STRING)
+	private InspectionType inspectionType;
 
 	/**
 	 * @return the id
@@ -216,6 +228,34 @@ public class Inspection implements Serializable {
 	 */
 	public void setActive(boolean active) {
 		this.active = active;
+	}
+
+	/**
+	 * @return the rent
+	 */
+	public Rent getRent() {
+		return rent;
+	}
+
+	/**
+	 * @param rent the rent to set
+	 */
+	public void setRent(Rent rent) {
+		this.rent = rent;
+	}
+
+	/**
+	 * @return the inspectionType
+	 */
+	public InspectionType getInspectionType() {
+		return inspectionType;
+	}
+
+	/**
+	 * @param inspectionType the inspectionType to set
+	 */
+	public void setInspectionType(InspectionType inspectionType) {
+		this.inspectionType = inspectionType;
 	}
 	
 }
