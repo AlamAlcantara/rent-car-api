@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,6 +18,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import javax.persistence.CascadeType;
+
+import com.example.rentcar.enums.RentState;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
@@ -36,7 +41,7 @@ public class Rent implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name = "vehicle_id")
-	@JsonIgnoreProperties("rents")
+	@JsonIgnoreProperties({"rents", "inspections"})
 	private Vehicle vehicle;
 	
 	@ManyToOne
@@ -59,10 +64,12 @@ public class Rent implements Serializable {
 	private String comment;
 	
 	@Column(name = "state")
-	private String state;
+	@Enumerated(EnumType.STRING)
+	private RentState state;
 	
-	@OneToMany(mappedBy = "rent")
-	@JsonIgnoreProperties({"rent", "vehicle", "employee", "customer"})
+	@OneToMany(mappedBy = "rent", cascade = {CascadeType.ALL})
+	@JsonIgnoreProperties(value = {"rent", "vehicle", "employee", "customer"},
+	allowSetters = true)
 	private List<Inspection> inspections;
 	
 
@@ -181,14 +188,14 @@ public class Rent implements Serializable {
 	/**
 	 * @return the state
 	 */
-	public String getState() {
+	public RentState getState() {
 		return state;
 	}
 
 	/**
 	 * @param state the state to set
 	 */
-	public void setState(String state) {
+	public void setState(RentState state) {
 		this.state = state;
 	}
 

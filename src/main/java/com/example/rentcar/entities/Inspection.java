@@ -75,6 +75,7 @@ public class Inspection implements Serializable {
 	@Column(name = "inspection_type")
 	@Enumerated(EnumType.STRING)
 	private InspectionType inspectionType;
+	
 
 	/**
 	 * @return the id
